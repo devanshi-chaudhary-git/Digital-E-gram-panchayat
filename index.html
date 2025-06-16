@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital E-Gram Panchayat - Empowering Villages</title>
+    <!-- Tailwind CSS CDN for rapid styling and responsiveness -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Elegant fonts: Cinzel Decorative for headings, Montserrat for body -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif; /* Modern, elegant sans-serif for body text */
+            background: linear-gradient(to bottom right, #0a0a2a, #1a1a3a); /* Deeper, more sophisticated dark background */
+            color: #e0e7ff; /* Lighter, subtle blue-white for text */
+            overflow: hidden; /* Prevent scrollbars from stardust */
+            position: relative; /* For positioning stardust relative to body (though stardust is fixed) */
+            /* New: Use CSS Grid for perfect centering of direct children */
+            display: grid;
+            place-items: center; /* Centers items both horizontally and vertically */
+            min-height: 100vh; /* Ensure body takes full viewport height */
+            margin: 0; /* Remove default body margin */
+        }
+        h1, h2, h3 {
+            font-family: 'Cinzel Decorative', cursive; /* Decorative and luxurious font for titles */
+            color: #ffc107; /* Rich gold for headings */
+            text-shadow: 0 0 8px rgba(255, 193, 7, 0.4); /* Subtle glow for headings */
+        }
+        /* Custom styles for luxurious buttons */
+        .btn-primary {
+            @apply bg-gradient-to-r from-purple-700 to-indigo-700 text-white px-6 py-3 rounded-xl shadow-lg hover:from-purple-800 hover:to-indigo-800 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 border border-purple-600;
+        }
+        .btn-secondary {
+            @apply bg-gray-700 text-gray-200 px-6 py-3 rounded-xl shadow-md hover:bg-gray-800 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50 border border-gray-600;
+        }
+        /* Style for the main container - simplified as body now handles centering */
+        .main-container {
+            @apply p-4; /* Keep padding */
+            position: relative; /* Keep relative for z-index, but no explicit positioning here */
+            z-index: 10; /* Bring content to front */
+            /* Removed previous centering and sizing as body is handling it */
+        }
+        /* Card styling for modules - darker, more mystical with refined shadow */
+        .module-card {
+            @apply bg-gray-900 bg-opacity-70 backdrop-filter backdrop-blur-sm p-8 rounded-2xl shadow-xl w-full max-w-md border border-gray-700;
+            /* Floating animation */
+            animation: float 3s ease-in-out infinite;
+            transform: translateY(0px); /* Initial position */
+        }
+        .input-field {
+            @apply mt-1 block w-full px-4 py-2 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 bg-gray-800 text-white; /* Darker inputs with elegant focus ring */
+        }
+        .error-message {
+            @apply text-red-400 text-sm mt-2; /* Lighter red for dark background */
+        }
+        /* Hidden class to toggle module visibility */
+        .hidden {
+            display: none !important;
+        }
+        a {
+            color: #a78bfa; /* Lighter purple-ish link color */
+        }
+        a:hover {
+            color: #c4b5fd;
+        }
+
+        /* Adjust font for general text and labels to Montserrat */
+        .module-card p,
+        .module-card label,
+        .text-center.text-gray-300.text-sm {
+            font-family: 'Montserrat', sans-serif; /* Attractive, non-cursive font */
+            font-size: 1rem; /* Standard readable size */
+            line-height: 1.5;
+            letter-spacing: 0.02em; /* Subtle spacing */
+        }
+
+        /* Stardust Effect - unchanged, as it fits the theme perfectly */
+        .stardust-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allows clicks to pass through */
+            z-index: 0; /* Keep it behind other content */
+            opacity: 0.7; /* Make it slightly transparent */
+        }
+
+        .stardust-background::before,
+        .stardust-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-repeat: repeat;
+            animation: move-stars 200s linear infinite; /* Slower movement for background stars */
+        }
+
+        .stardust-background::before {
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+            background-size: 200px 200px;
+            animation-duration: 150s; /* Different speed for subtle parallax */
+        }
+
+        .stardust-background::after {
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0.5px, transparent 0.5px);
+            background-size: 150px 150px;
+            animation-duration: 250s; /* Even slower */
+        }
+
+        @keyframes move-stars {
+            from { background-position: 0 0; }
+            to { background-position: 100% 100%; }
+        }
+
+        /* Floating effect for module cards - unchanged, as it fits the theme perfectly */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+            50% {
+                transform: translateY(-8px); /* Moves up slightly */
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* Shadow expands */
+            }
+            100% {
+                transform: translateY(0px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        /* Responsive adjustments for stardust background size */
+        @media (max-width: 768px) {
+            .stardust-background::before {
+                background-size: 100px 100px;
+            }
+            .stardust-background::after {
+                background-size: 75px 75px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Stardust Background Effect -->
+    <div class="stardust-background"></div>
+
+    <div class="main-container">
+        <!-- Login Module -->
+        <div id="login-module" class="module-card">
+            <h2 class="text-3xl font-bold text-center mb-6">Welcome to Gram Seva Portal</h2>
+            <div class="mb-4 flex flex-col items-center">
+                <label for="login-email" class="block text-sm font-semibold mb-2">Email Address:</label>
+                <input type="email" id="login-email" class="input-field" placeholder="your.email@example.com">
+            </div>
+            <div class="mb-6 flex flex-col items-center">
+                <label for="login-password" class="block text-sm font-semibold mb-2">Password:</label>
+                <input type="password" id="login-password" class="input-field" placeholder="Your secure password">
+            </div>
+            <p id="login-error" class="error-message hidden"></p>
+            <button id="login-btn" class="btn-primary w-full mb-4">Login Securely</button>
+            <p class="text-center text-gray-300 text-sm">New here? <a href="#" id="show-register-btn" class="font-medium">Register for Services</a></p>
+        </div>
+
+        <!-- Register Module (initially hidden) -->
+        <div id="register-module" class="module-card hidden">
+            <h2 class="text-3xl font-bold text-center mb-6">Register for Gram Seva</h2>
+            <div class="mb-4 flex flex-col items-center">
+                <label for="register-email" class="block text-sm font-semibold mb-2">Email Address:</label>
+                <input type="email" id="register-email" class="input-field" placeholder="your.email@example.com">
+            </div>
+            <div class="mb-4 flex flex-col items-center">
+                <label for="register-password" class="block text-sm font-semibold mb-2">Create Password:</label>
+                <input type="password" id="register-password" class="input-field" placeholder="Choose a strong password">
+            </div>
+            <div class="mb-6 flex flex-col items-center">
+                <label for="register-role" class="block text-sm font-semibold mb-2">Register as:</label>
+                <select id="register-role" class="input-field">
+                    <option value="user">Citizen (Public User)</option>
+                    <option value="staff">Gram Seva Staff</option>
+                    <option value="officer">Panchayat Officer</option>
+                </select>
+            </div>
+            <p id="register-error" class="error-message hidden"></p>
+            <button id="register-btn" class="btn-primary w-full mb-4">Complete Registration</button>
+            <p class="text-center text-gray-300 text-sm">Already registered? <a href="#" id="show-login-btn" class="font-medium">Proceed to Login</a></p>
+        </div>
+
+        <!-- User Dashboard (initially hidden) -->
+        <div id="user-dashboard" class="module-card hidden">
+            <h2 class="text-3xl font-bold text-center mb-6">Citizen Dashboard</h2>
+            <p class="mb-4 text-gray-300">Welcome to your personal portal. Here you can discover services, apply for assistance, and track your requests.</p>
+            <div class="space-y-4">
+                <button id="show-explore-services-btn" class="btn-secondary w-full">Explore Services</button>
+                <button id="show-apply-service-form-btn" class="btn-secondary w-full">Submit New Application</button>
+                <button id="show-my-applications-btn" class="btn-secondary w-full">My Application Status</button>
+                <button class="btn-secondary w-full">Manage Profile</button>
+            </div>
+            <button id="user-logout-btn" class="btn-primary w-full mt-6">Logout</button>
+        </div>
+
+        <!-- Officer/Admin Dashboard (initially hidden) -->
+        <div id="officer-admin-dashboard" class="module-card hidden">
+            <h2 class="text-3xl font-bold text-center mb-6">Panchayat Officer Panel</h2>
+            <p class="mb-4 text-gray-300">This is your administrative dashboard. Manage services, schemes, and application approvals.</p>
+            <div class="space-y-4">
+                <button id="show-create-service-btn" class="btn-secondary w-full">Create & Manage Services</button>
+                <button id="show-oversee-applications-btn" class="btn-secondary w-full">Oversee Applications</button>
+                <button class="btn-secondary w-full">Review & Approve Requests</button> <!-- This will use the app details module -->
+            </div>
+            <button id="officer-admin-logout-btn" class="btn-primary w-full mt-6">Logout</button>
+        </div>
+
+        <!-- Create Service Module (initially hidden) -->
+        <div id="create-service-module" class="module-card hidden">
+            <h2 class="text-3xl font-bold text-center mb-6">Create New Service</h2>
+            <div class="mb-4 flex flex-col items-center">
+                <label for="service-name" class="block text-sm font-semibold mb-2">Service Name:</label>
+                <input type="text" id="service-name" class="input-field" placeholder="e.g., Birth Certificate Application">
+            </div>
+            <div class="mb-4 flex flex-col items-center">
+                <label for="service-description" class="block text-sm font-semibold mb-2">Description:</label>
+                <textarea id="service-description" class="input-field h-24 resize-y" placeholder="Briefly describe the service and its purpose."></textarea>
+            </div>
+            <div class="mb-6 flex flex-col items-center">
+                <label for="service-documents" class="block text-sm font-semibold mb-2">Required Documents (comma-separated):</label>
+                <input type="text" id="service-documents" class="input-field" placeholder="e.g., Aadhaar Card, Passport, Electricity Bill">
+            </div>
+            <p id="create-service-error" class="error-message hidden"></p>
+            <button id="submit-service-btn" class="btn-primary w-full mb-4">Add Service</button>
+            <button id="back-to-officer-dashboard" class="btn-secondary w-full">Back to Dashboard</button>
+        </div>
+
+        <!-- View Services Module (initially hidden) -->
+        <div id="view-services-module" class="module-card hidden max-w-2xl">
+            <h2 class="text-3xl font-bold text-center mb-6">Explore Available Services</h2>
+            <p class="mb-4 text-gray-300">Discover the various services offered by Gram Seva Panchayat.</p>
+            <div id="services-list" class="space-y-4 max-h-96 overflow-y-auto pr-2">
+                <!-- Services will be dynamically loaded here -->
+                <p class="text-center text-gray-400">Loading services...</p>
+            </div>
+            <p id="view-services-error" class="error-message hidden"></p>
+            <button id="back-to-user-dashboard-from-services" class="btn-primary w-full mt-6">Back to Dashboard</button>
+        </div>
+
+        <!-- Apply Service Module (initially hidden) -->
+        <div id="apply-service-module" class="module-card hidden">
+            <h2 class="text-3xl font-bold text-center mb-6">Apply for <span id="apply-service-name">Service</span></h2>
+            <p class="mb-4 text-gray-300">Please provide the necessary details for your application.</p>
+            <div class="mb-4 flex flex-col items-center">
+                <label for="applicant-name" class="block text-sm font-semibold mb-2">Your Full Name:</label>
+                <input type="text" id="applicant-name" class="input-field" placeholder="Enter your full name">
+            </div>
+            <div class="mb-4 flex flex-col items-center">
+                <label for="applicant-contact" class="block text-sm font-semibold mb-2">Contact Number:</label>
+                <input type="text" id="applicant-contact" class="input-field" placeholder="e.g., +91 9876543210">
+            </div>
+            <div class="mb-4 flex flex-col items-center">
+                <label for="applicant-address" class="block text-sm font-semibold mb-2">Address:</label>
+                <textarea id="applicant-address" class="input-field h-24 resize-y" placeholder="Your full residential address"></textarea>
+            </div>
+            <p id="apply-service-error" class="error-message hidden"></p>
+            <button id="submit-application-btn" class="btn-primary w-full mb-4">Submit Application</button>
+            <button id="back-to-services-from-apply" class="btn-secondary w-full">Back to Services</button>
+        </div>
+
+        <!-- My Applications Module (for Citizen User, initially hidden) -->
+        <div id="my-applications-module" class="module-card hidden max-w-2xl">
+            <h2 class="text-3xl font-bold text-center mb-6">My Submitted Applications</h2>
+            <p class="mb-4 text-gray-300">Here you can track the status of your applications.</p>
+            <div id="my-applications-list" class="space-y-4 max-h-96 overflow-y-auto pr-2">
+                <!-- User's applications will be dynamically loaded here -->
+                <p class="text-center text-gray-400">No applications found.</p>
+            </div>
+            <p id="my-applications-error" class="error-message hidden"></p>
+            <button id="back-to-user-dashboard-from-my-apps" class="btn-primary w-full mt-6">Back to Dashboard</button>
+        </div>
+
+        <!-- Oversee Applications Module (for Officer/Admin, initially hidden) -->
+        <div id="oversee-applications-module" class="module-card hidden max-w-2xl">
+            <h2 class="text-3xl font-bold text-center mb-6">All Citizen Applications</h2>
+            <p class="mb-4 text-gray-300">Review and manage all submitted service applications.</p>
+            <div id="all-applications-list" class="space-y-4 max-h-96 overflow-y-auto pr-2">
+                <!-- All applications will be dynamically loaded here -->
+                <p class="text-center text-gray-400">No applications found.</p>
+            </div>
+            <p id="oversee-applications-error" class="error-message hidden"></p>
+            <button id="back-to-officer-dashboard-from-all-apps" class="btn-primary w-full mt-6">Back to Dashboard</button>
+        </div>
+
+        <!-- Application Details Module (for Officer/Staff to review/update, initially hidden) -->
+        <div id="application-details-module" class="module-card hidden">
+            <h2 class="text-3xl font-bold text-center mb-6">Application Details</h2>
+            <p class="mb-4 text-gray-300">Review and update the status of this application.</p>
+            <div class="space-y-4 text-left">
+                <p><strong>Service:</strong> <span id="detail-service-name"></span></p>
+                <p><strong>Applicant:</strong> <span id="detail-applicant-name"></span></p>
+                <p><strong>Contact:</strong> <span id="detail-applicant-contact"></span></p>
+                <p><strong>Address:</strong> <span id="detail-applicant-address"></span></p>
+                <p><strong>Submitted On:</strong> <span id="detail-submission-date"></span></p>
+                <div>
+                    <label for="application-status" class="block text-sm font-semibold mb-2">Current Status:</label>
+                    <select id="application-status" class="input-field">
+                        <option value="Submitted">Submitted</option>
+                        <option value="Under Review">Under Review</option>
+                        <option value="Pending Documents">Pending Documents</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+            </div>
+            <p id="application-details-error" class="error-message hidden"></p>
+            <button id="update-application-status-btn" class="btn-primary w-full mt-6">Update Status</button>
+            <button id="back-from-application-details" class="btn-secondary w-full mt-2">Back</button>
+        </div>
+
+
+        <!-- Staff Dashboard (initially hidden) -->
+        <div id="staff-dashboard" class="module-card hidden">
+            <h2 class="text-3xl font-bold text-center mb-6">Gram Seva Staff Panel</h2>
+            <p class="mb-4 text-gray-300">Welcome, Staff. View current services and update application progress.</p>
+            <div class="space-y-4">
+                <button id="staff-view-services-btn" class="btn-secondary w-full">View Service Details</button>
+                <button id="staff-update-applications-btn" class="btn-secondary w-full">Update Application Progress</button>
+            </div>
+            <button id="staff-logout-btn" class="btn-primary w-full mt-6">Logout</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs - make sure to update these versions if newer ones are available -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, query, where, getDocs, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global Firebase instances and user ID
+        let app;
+        let db;
+        let auth;
+        let currentUserId = null;
+        let currentUserRole = null; // To store the role of the logged-in user
+        let selectedServiceId = null; // To store the ID of the service being applied for
+        let selectedServiceName = null; // To store the name of the service being applied for
+        let currentApplicationDocId = null; // Stores the ID of the application being viewed/updated
+
+        // This configuration will be provided by the Canvas environment at runtime
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        // const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {}; // Original line commented out
+
+        // --- YOUR FIREBASE CONFIGURATION ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyA2O9L3DE8KLvJxXCplvRnRNkC3Xw7sdTc",
+            authDomain: "digital-e-gram-panchayat-e7d71.firebaseapp.com",
+            projectId: "digital-e-gram-panchayat-e7d71",
+            storageBucket: "digital-e-gram-panchayat-e7d71.firebasestorage.app",
+            messagingSenderId: "557115193616",
+            appId: "1:557115193616:web:cd630fe6a91c2dbcbfcd95",
+            measurementId: "G-X7C16T1N5X"
+        };
+        // --- END OF YOUR FIREBASE CONFIGURATION ---
+
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        /**
+         * Initializes Firebase application and services.
+         * Sets up authentication state listener.
+         */
+        async function initializeFirebase() {
+            try {
+                // Check if Firebase app is already initialized to prevent errors
+                if (!app) {
+                    app = initializeApp(firebaseConfig);
+                }
+                db = getFirestore(app);
+                auth = getAuth(app);
+                console.log("Firebase services initialized.");
+
+                // Listen for authentication state changes
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        currentUserId = user.uid;
+                        console.log("User logged in:", currentUserId);
+                        // Fetch user role from Firestore
+                        await fetchUserRole(currentUserId);
+                        // Redirect to appropriate dashboard based on role
+                        showDashboardByRole();
+                    } else {
+                        currentUserId = null;
+                        currentUserRole = null;
+                        console.log("User logged out.");
+                        // Show login module if no user is logged in
+                        showModule('login');
+                    }
+                });
+
+            } catch (error) {
+                console.error("Error initializing Firebase:", error);
+                displayErrorMessage('login-error', `Firebase initialization error: ${error.message}`);
+            }
+        }
+
+        /**
+         * Fetches the user's role from Firestore and sets `currentUserRole`.
+         * @param {string} userId - The ID of the current user.
+         */
+        async function fetchUserRole(userId) {
+            if (!db) {
+                console.error("Firestore DB not initialized.");
+                return;
+            }
+            try {
+                // Path for private user data
+                const userDocRef = doc(db, `artifacts/${appId}/users/${userId}/profile`, 'details');
+                const docSnap = await getDoc(userDocRef);
+
+                if (docSnap.exists()) {
+                    currentUserRole = docSnap.data().role;
+                    console.log("User role fetched:", currentUserRole);
+                } else {
+                    console.warn("No user profile found for ID:", userId, "Defaulting to 'user' role.");
+                    currentUserRole = 'user'; // Default role if not found
+                }
+            } catch (error) {
+                console.error("Error fetching user role:", error);
+                currentUserRole = 'user'; // Fallback
+            }
+        }
+
+        /**
+         * Displays an error message in the specified element.
+         * @param {string} elementId - The ID of the HTML element to display the message.
+         * @param {string} message - The error message to display.
+         */
+        function displayErrorMessage(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.classList.remove('hidden');
+            }
+            console.error(`Error (${elementId}): ${message}`);
+        }
+
+        /**
+         * Hides all modules and displays the specified one.
+         * @param {string} moduleName - The name of the module to show (e.g., 'login', 'register', 'user-dashboard').
+         */
+        function showModule(moduleName) {
+            // Hide all modules
+            document.querySelectorAll('.module-card').forEach(card => card.classList.add('hidden'));
+            // Remove error messages
+            document.querySelectorAll('.error-message').forEach(error => error.classList.add('hidden'));
+
+            // Show the requested module
+            const targetModule = document.getElementById(`${moduleName}-module`) || document.getElementById(moduleName);
+            if (targetModule) {
+                targetModule.classList.remove('hidden');
+                console.log(`Switched to module: ${moduleName}`);
+            } else {
+                console.warn(`Module with ID '${moduleName}' not found.`);
+            }
+        }
+
+        /**
+         * Redirects the user to the appropriate dashboard based on their role.
+         */
+        function showDashboardByRole() {
+            if (!currentUserId || !currentUserRole) {
+                console.warn("User not logged in or role not defined. Redirecting to login.");
+                showModule('login');
+                return;
+            }
+
+            // Show the appropriate dashboard based on the user's role
+            switch (currentUserRole) {
+                case 'user':
+                    showModule('user-dashboard');
+                    break;
+                case 'staff':
+                    showModule('staff-dashboard');
+                    break;
+                case 'officer':
+                    showModule('officer-admin-dashboard');
+                    break;
+                default:
+                    console.warn("Unknown user role:", currentUserRole, "Redirecting to login.");
+                    showModule('login');
+                    break;
+            }
+            console.log(`Displaying dashboard for role: ${currentUserRole}`);
+        }
+
+        /**
+         * Handles user registration.
+         */
+        async function handleRegister() {
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const role = document.getElementById('register-role').value;
+            const registerErrorElement = document.getElementById('register-error');
+            registerErrorElement.classList.add('hidden'); // Hide previous error
+
+            if (!email || !password || !role) {
+                displayErrorMessage('register-error', 'All fields are required.');
+                return;
+            }
+
+            try {
+                // Create user with email and password
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                console.log("User registered:", user.uid);
+
+                // Save user role and other profile info to Firestore
+                // This is stored in a private collection for the user
+                const userProfileRef = doc(db, `artifacts/${appId}/users/${user.uid}/profile`, 'details');
+                await setDoc(userProfileRef, {
+                    email: email,
+                    role: role,
+                    registeredAt: new Date(),
+                    // Add other profile fields as needed
+                });
+                console.log("User role saved to Firestore:", role);
+
+                alertBox("Registration Successful!", `Welcome, ${email}! You have been registered as a ${role}.`);
+                // Clear form fields
+                document.getElementById('register-email').value = '';
+                document.getElementById('register-password').value = '';
+                // The onAuthStateChanged listener will handle redirecting to dashboard
+            } catch (error) {
+                console.error("Error during registration:", error);
+                let errorMessage = 'Registration failed. Please try again.';
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessage = 'This email is already in use.';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'Invalid email address.';
+                } else if (error.code === 'auth/weak-password') {
+                    errorMessage = 'Password should be at least 6 characters.';
+                }
+                displayErrorMessage('register-error', errorMessage);
+            }
+        }
+
+        /**
+         * Handles user login.
+         */
+        async function handleLogin() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const loginErrorElement = document.getElementById('login-error');
+            loginErrorElement.classList.add('hidden'); // Hide previous error
+
+            if (!email || !password) {
+                displayErrorMessage('login-error', 'Email and password are required.');
+                return;
+            }
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                console.log("User logged in:", user.uid);
+                alertBox("Login Successful!", `Welcome back, ${email}!`);
+                // The onAuthStateChanged listener will handle fetching role and redirecting
+            } catch (error) {
+                console.error("Error during login:", error);
+                let errorMessage = 'Login failed. Please check your credentials.';
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    errorMessage = 'Invalid email or password.';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'Invalid email format.';
+                }
+                displayErrorMessage('login-error', errorMessage);
+            }
+        }
+
+        /**
+         * Handles user logout.
+         */
+        async function handleLogout() {
+            try {
+                await signOut(auth);
+                console.log("User signed out successfully.");
+                alertBox("Logged Out", "You have been successfully logged out.");
+                // onAuthStateChanged listener will automatically show login module
+            } catch (error) {
+                console.error("Error during logout:", error);
+                // Can display a general message or log it
+            }
+        }
+
+        /**
+         * Custom alert box function (instead of alert()).
+         * @param {string} title - The title of the alert.
+         * @param {string} message - The message content.
+         */
+        function alertBox(title, message) {
+            let alertModal = document.getElementById('alert-modal');
+            if (!alertModal) {
+                alertModal = document.createElement('div');
+                alertModal.id = 'alert-modal';
+                alertModal.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden';
+                alertModal.innerHTML = `
+                    <div class="bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-sm transform transition-all sm:my-8 sm:w-full sm:max-w-lg border border-gray-700">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 id="alert-title" class="text-lg font-bold text-yellow-500"></h3>
+                            <button id="alert-close-btn" class="text-gray-400 hover:text-gray-200">&times;</button>
+                        </div>
+                        <p id="alert-message" class="text-sm text-gray-300 mb-4"></p>
+                        <div class="flex justify-end">
+                            <button id="alert-ok-btn" class="btn-primary">Acknowledge</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(alertModal);
+
+                document.getElementById('alert-close-btn').addEventListener('click', () => alertModal.classList.add('hidden'));
+                document.getElementById('alert-ok-btn').addEventListener('click', () => alertModal.classList.add('hidden'));
+            }
+
+            document.getElementById('alert-title').textContent = title;
+            document.getElementById('alert-message').textContent = message;
+            alertModal.classList.remove('hidden');
+        }
+
+
+        // --- Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeFirebase(); // Initialize Firebase when DOM is loaded
+
+            // Navigation between login and register
+            document.getElementById('show-register-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                showModule('register');
+            });
+            document.getElementById('show-login-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                showModule('login');
+            });
+
+            // Authentication buttons
+            document.getElementById('register-btn').addEventListener('click', handleRegister);
+            document.getElementById('login-btn').addEventListener('click', handleLogin);
+            document.getElementById('user-logout-btn').addEventListener('click', handleLogout);
+            document.getElementById('officer-admin-logout-btn').addEventListener('click', handleLogout);
+            document.getElementById('staff-logout-btn').addEventListener('click', handleLogout);
+
+            // Officer dashboard buttons
+            document.getElementById('show-create-service-btn').addEventListener('click', () => {
+                showModule('create-service');
+            });
+            document.getElementById('back-to-officer-dashboard').addEventListener('click', () => {
+                showModule('officer-admin-dashboard');
+            });
+            document.getElementById('submit-service-btn').addEventListener('click', handleSubmitService);
+            document.getElementById('show-oversee-applications-btn').addEventListener('click', () => {
+                showModule('oversee-applications');
+                fetchAndDisplayAllApplications();
+            });
+
+
+            // User dashboard buttons
+            document.getElementById('show-explore-services-btn').addEventListener('click', () => {
+                showModule('view-services');
+                fetchAndDisplayServices(); // Fetch and display services when this module is shown
+            });
+            document.getElementById('show-apply-service-form-btn').addEventListener('click', () => {
+                // When 'Submit New Application' is clicked, show a default or selection of services
+                // For now, we'll just show the apply module with a generic name.
+                selectedServiceId = null; // Reset if coming from generic 'Submit New Application'
+                selectedServiceName = 'a Service'; // Generic name
+                document.getElementById('apply-service-name').textContent = selectedServiceName;
+                showModule('apply-service');
+            });
+            document.getElementById('show-my-applications-btn').addEventListener('click', () => {
+                showModule('my-applications');
+                fetchAndDisplayMyApplications();
+            });
+
+
+            document.getElementById('back-to-user-dashboard-from-services').addEventListener('click', () => {
+                showModule('user-dashboard');
+            });
+            document.getElementById('back-to-services-from-apply').addEventListener('click', () => {
+                showModule('view-services');
+                fetchAndDisplayServices(); // Reload services when returning
+            });
+            document.getElementById('back-to-user-dashboard-from-my-apps').addEventListener('click', () => {
+                showModule('user-dashboard');
+            });
+            document.getElementById('back-to-officer-dashboard-from-all-apps').addEventListener('click', () => {
+                showModule('officer-admin-dashboard');
+            });
+            document.getElementById('back-from-application-details').addEventListener('click', () => {
+                // Determine where to go back based on who navigated to details
+                if (currentUserRole === 'officer' || currentUserRole === 'staff') {
+                    showModule('oversee-applications'); // Or staff applications list later
+                    fetchAndDisplayAllApplications(); // Refresh list
+                } else if (currentUserRole === 'user') {
+                    showModule('my-applications');
+                    fetchAndDisplayMyApplications(); // Refresh list
+                }
+            });
+
+
+            // Delegated event listener for dynamically created "Apply for this Service" buttons
+            document.getElementById('services-list').addEventListener('click', (event) => {
+                if (event.target.classList.contains('apply-service-btn')) {
+                    selectedServiceId = event.target.dataset.serviceId;
+                    selectedServiceName = event.target.dataset.serviceName;
+                    document.getElementById('apply-service-name').textContent = selectedServiceName;
+                    showModule('apply-service');
+                    console.log(`Applying for service: ${selectedServiceName} (ID: ${selectedServiceId})`);
+                }
+            });
+
+            // Delegated event listeners for viewing application details (from My Applications and All Applications)
+            document.getElementById('my-applications-list').addEventListener('click', (event) => {
+                if (event.target.classList.contains('view-application-details-btn')) {
+                    const appIdToView = event.target.dataset.applicationId;
+                    showApplicationDetails(appIdToView);
+                }
+            });
+            document.getElementById('all-applications-list').addEventListener('click', (event) => {
+                if (event.target.classList.contains('view-application-details-btn')) {
+                    const appIdToView = event.target.dataset.applicationId;
+                    showApplicationDetails(appIdToView);
+                }
+            });
+            document.getElementById('update-application-status-btn').addEventListener('click', updateApplicationStatus);
+
+            // Staff dashboard buttons
+            document.getElementById('staff-view-services-btn').addEventListener('click', () => {
+                showModule('view-services'); // Staff also view services
+                fetchAndDisplayServices();
+            });
+            document.getElementById('staff-update-applications-btn').addEventListener('click', () => {
+                showModule('oversee-applications'); // Staff also updates applications (for now, all)
+                fetchAndDisplayAllApplications();
+            });
+
+
+            document.getElementById('submit-application-btn').addEventListener('click', handleSubmitApplication);
+
+
+            // Initial view is login module
+            showModule('login');
+        });
+
+
+        /**
+         * Handles the submission of a new service by an Officer/Admin.
+         */
+        async function handleSubmitService() {
+            const serviceName = document.getElementById('service-name').value;
+            const serviceDescription = document.getElementById('service-description').value;
+            const serviceDocuments = document.getElementById('service-documents').value;
+            const createServiceErrorElement = document.getElementById('create-service-error');
+            createServiceErrorElement.classList.add('hidden'); // Hide previous error
+
+            if (!serviceName || !serviceDescription || !serviceDocuments) {
+                displayErrorMessage('create-service-error', 'All service fields are required.');
+                return;
+            }
+
+            try {
+                // Add a new document to the 'services' subcollection under 'public/data'
+                const servicesCollectionRef = collection(db, `artifacts/${appId}/public/data/services`);
+                await addDoc(servicesCollectionRef, {
+                    name: serviceName,
+                    description: serviceDescription,
+                    requiredDocuments: serviceDocuments.split(',').map(doc => doc.trim()), // Store as an array
+                    createdBy: currentUserId, // Log who created it
+                    createdAt: new Date(),
+                    status: 'Active' // Default status for a new service
+                });
+                console.log("Service added successfully!");
+                alertBox("Service Added!", `The service "${serviceName}" has been successfully added.`);
+                
+                // Clear the form fields
+                document.getElementById('service-name').value = '';
+                document.getElementById('service-description').value = '';
+                document.getElementById('service-documents').value = '';
+
+                // Optionally, navigate back to the officer dashboard or show a success message
+                showModule('officer-admin-dashboard');
+
+            } catch (error) {
+                console.error("Error adding service:", error);
+                displayErrorMessage('create-service-error', `Failed to add service: ${error.message}`);
+            }
+        }
+
+        /**
+         * Fetches and displays the list of available services.
+         */
+        async function fetchAndDisplayServices() {
+            const servicesListDiv = document.getElementById('services-list');
+            const viewServicesErrorElement = document.getElementById('view-services-error');
+            servicesListDiv.innerHTML = '<p class="text-center text-gray-400">Loading services...</p>'; // Show loading message
+            viewServicesErrorElement.classList.add('hidden'); // Hide previous error
+
+            if (!db) {
+                console.error("Firestore DB not initialized.");
+                displayErrorMessage('view-services-error', 'Database not ready. Please try again.');
+                return;
+            }
+
+            try {
+                const servicesCollectionRef = collection(db, `artifacts/${appId}/public/data/services`);
+                // Fetch only services that are 'Active'
+                const q = query(servicesCollectionRef, where("status", "==", "Active"));
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    servicesListDiv.innerHTML = '<p class="text-center text-gray-400">No services currently available.</p>';
+                    console.log("No services found in Firestore.");
+                    return;
+                }
+
+                servicesListDiv.innerHTML = ''; // Clear loading message
+
+                querySnapshot.forEach((doc) => {
+                    const service = doc.data();
+                    const serviceId = doc.id; // Get the document ID
+                    
+                    const serviceCard = document.createElement('div');
+                    serviceCard.className = 'bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700 hover:border-purple-500 transition duration-300 ease-in-out';
+                    serviceCard.innerHTML = `
+                        <h3 class="text-xl font-semibold text-yellow-500 mb-2">${service.name}</h3>
+                        <p class="text-gray-300 mb-2">${service.description}</p>
+                        <p class="text-gray-400 text-sm"><strong>Required Documents:</strong> ${service.requiredDocuments.join(', ')}</p>
+                        <button class="btn-primary mt-4 w-full apply-service-btn" data-service-id="${serviceId}" data-service-name="${service.name}">Apply for this Service</button>
+                    `;
+                    servicesListDiv.appendChild(serviceCard);
+                });
+                console.log("Services loaded and displayed.");
+
+            } catch (error) {
+                console.error("Error fetching services:", error);
+                displayErrorMessage('view-services-error', `Failed to load services: ${error.message}`);
+                servicesListDiv.innerHTML = '<p class="text-center text-red-400">Error loading services. Please try again.</p>';
+            }
+        }
+
+        /**
+         * Handles the submission of a new service application by a Citizen User.
+         */
+        async function handleSubmitApplication() {
+            const applicantName = document.getElementById('applicant-name').value;
+            const applicantContact = document.getElementById('applicant-contact').value;
+            const applicantAddress = document.getElementById('applicant-address').value;
+            const applyServiceErrorElement = document.getElementById('apply-service-error');
+            applyServiceErrorElement.classList.add('hidden'); // Hide previous error
+
+            if (!currentUserId) {
+                displayErrorMessage('apply-service-error', 'You must be logged in to apply for services.');
+                return;
+            }
+
+            if (!selectedServiceId) {
+                displayErrorMessage('apply-service-error', 'No service selected. Please choose a service to apply for.');
+                return;
+            }
+
+            if (!applicantName || !applicantContact || !applicantAddress) {
+                displayErrorMessage('apply-service-error', 'All application fields are required.');
+                return;
+            }
+
+            try {
+                // Add a new document to the 'applications' subcollection under 'public/data'
+                const applicationsCollectionRef = collection(db, `artifacts/${appId}/public/data/applications`);
+                await addDoc(applicationsCollectionRef, {
+                    serviceId: selectedServiceId,
+                    serviceName: selectedServiceName,
+                    applicantUserId: currentUserId,
+                    applicantName: applicantName,
+                    applicantContact: applicantContact,
+                    applicantAddress: applicantAddress,
+                    submissionDate: new Date(),
+                    status: 'Submitted' // Initial status
+                });
+                console.log("Application submitted successfully!");
+                alertBox("Application Submitted!", `Your application for "${selectedServiceName}" has been submitted.`);
+                
+                // Clear the form fields
+                document.getElementById('applicant-name').value = '';
+                document.getElementById('applicant-contact').value = '';
+                document.getElementById('applicant-address').value = '';
+                selectedServiceId = null; // Clear selected service
+                selectedServiceName = null;
+
+                // Navigate back to the user dashboard
+                showModule('user-dashboard');
+
+            } catch (error) {
+                console.error("Error submitting application:", error);
+                displayErrorMessage('apply-service-error', `Failed to submit application: ${error.message}`);
+            }
+        }
+
+        /**
+         * Fetches and displays applications submitted by the current user.
+         */
+        async function fetchAndDisplayMyApplications() {
+            const myApplicationsListDiv = document.getElementById('my-applications-list');
+            const myApplicationsErrorElement = document.getElementById('my-applications-error');
+            myApplicationsListDiv.innerHTML = '<p class="text-center text-gray-400">Loading your applications...</p>';
+            myApplicationsErrorElement.classList.add('hidden');
+
+            if (!db || !currentUserId) {
+                console.error("Firestore DB not initialized or user not logged in.");
+                displayErrorMessage('my-applications-error', 'Please log in to view your applications.');
+                return;
+            }
+
+            try {
+                const applicationsCollectionRef = collection(db, `artifacts/${appId}/public/data/applications`);
+                // Query applications where applicantUserId matches the currentUserId
+                const q = query(applicationsCollectionRef, where("applicantUserId", "==", currentUserId));
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    myApplicationsListDiv.innerHTML = '<p class="text-center text-gray-400">You have not submitted any applications yet.</p>';
+                    console.log("No applications found for current user.");
+                    return;
+                }
+
+                myApplicationsListDiv.innerHTML = ''; // Clear loading message
+
+                querySnapshot.forEach((doc) => {
+                    const application = doc.data();
+                    const applicationId = doc.id;
+                    const submissionDate = application.submissionDate ? new Date(application.submissionDate.seconds * 1000).toLocaleDateString() : 'N/A';
+
+                    const applicationCard = document.createElement('div');
+                    applicationCard.className = 'bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700 hover:border-purple-500 transition duration-300 ease-in-out';
+                    applicationCard.innerHTML = `
+                        <h3 class="text-xl font-semibold text-yellow-500 mb-2">${application.serviceName}</h3>
+                        <p class="text-gray-300 mb-1">Status: <span class="font-bold text-indigo-300">${application.status}</span></p>
+                        <p class="text-gray-400 text-sm">Submitted On: ${submissionDate}</p>
+                        <button class="btn-secondary mt-4 w-full view-application-details-btn" data-application-id="${applicationId}">View Details</button>
+                    `;
+                    myApplicationsListDiv.appendChild(applicationCard);
+                });
+                console.log("User applications loaded and displayed.");
+
+            } catch (error) {
+                console.error("Error fetching user applications:", error);
+                displayErrorMessage('my-applications-error', `Failed to load applications: ${error.message}`);
+                myApplicationsListDiv.innerHTML = '<p class="text-center text-red-400">Error loading your applications. Please try again.</p>';
+            }
+        }
+
+        /**
+         * Fetches and displays all applications for Officer/Admin/Staff.
+         */
+        async function fetchAndDisplayAllApplications() {
+            const allApplicationsListDiv = document.getElementById('all-applications-list');
+            const overseeApplicationsErrorElement = document.getElementById('oversee-applications-error');
+            allApplicationsListDiv.innerHTML = '<p class="text-center text-gray-400">Loading all applications...</p>';
+            overseeApplicationsErrorElement.classList.add('hidden');
+
+            if (!db) {
+                console.error("Firestore DB not initialized.");
+                displayErrorMessage('oversee-applications-error', 'Database not ready. Please try again.');
+                return;
+            }
+
+            try {
+                const applicationsCollectionRef = collection(db, `artifacts/${appId}/public/data/applications`);
+                const q = query(applicationsCollectionRef); // Get all applications
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    allApplicationsListDiv.innerHTML = '<p class="text-center text-gray-400">No applications found in the system.</p>';
+                    console.log("No applications found in Firestore.");
+                    return;
+                }
+
+                allApplicationsListDiv.innerHTML = ''; // Clear loading message
+
+                querySnapshot.forEach((doc) => {
+                    const application = doc.data();
+                    const applicationId = doc.id;
+                    const submissionDate = application.submissionDate ? new Date(application.submissionDate.seconds * 1000).toLocaleDateString() : 'N/A';
+
+                    const applicationCard = document.createElement('div');
+                    applicationCard.className = 'bg-gray-800 p-6 rounded-lg shadow-md border border-gray-700 hover:border-purple-500 transition duration-300 ease-in-out';
+                    applicationCard.innerHTML = `
+                        <h3 class="text-xl font-semibold text-yellow-500 mb-2">${application.serviceName}</h3>
+                        <p class="text-gray-300 mb-1">Applicant: <span class="font-bold">${application.applicantName}</span></p>
+                        <p class="text-gray-300 mb-1">Status: <span class="font-bold text-indigo-300">${application.status}</span></p>
+                        <p class="text-gray-400 text-sm">Submitted On: ${submissionDate}</p>
+                        <button class="btn-secondary mt-4 w-full view-application-details-btn" data-application-id="${applicationId}">Review Details</button>
+                    `;
+                    allApplicationsListDiv.appendChild(applicationCard);
+                });
+                console.log("All applications loaded and displayed.");
+
+            } catch (error) {
+                console.error("Error fetching all applications:", error);
+                displayErrorMessage('oversee-applications-error', `Failed to load applications: ${error.message}`);
+                allApplicationsListDiv.innerHTML = '<p class="text-center text-red-400">Error loading applications. Please try again.</p>';
+            }
+        }
+
+        /**
+         * Displays details of a specific application in the application-details-module.
+         * @param {string} applicationId - The ID of the application document to display.
+         */
+        async function showApplicationDetails(applicationId) {
+            const applicationDetailsModule = document.getElementById('application-details-module');
+            const applicationDetailsErrorElement = document.getElementById('application-details-error');
+            applicationDetailsErrorElement.classList.add('hidden'); // Hide previous error
+            
+            // Store the ID of the application currently being viewed
+            currentApplicationDocId = applicationId;
+
+            if (!db) {
+                console.error("Firestore DB not initialized.");
+                displayErrorMessage('application-details-error', 'Database not ready. Please try again.');
+                return;
+            }
+
+            try {
+                const applicationDocRef = doc(db, `artifacts/${appId}/public/data/applications`, applicationId);
+                const docSnap = await getDoc(applicationDocRef);
+
+                if (docSnap.exists()) {
+                    const application = docSnap.data();
+                    document.getElementById('detail-service-name').textContent = application.serviceName || 'N/A';
+                    document.getElementById('detail-applicant-name').textContent = application.applicantName || 'N/A';
+                    document.getElementById('detail-applicant-contact').textContent = application.applicantContact || 'N/A';
+                    document.getElementById('detail-applicant-address').textContent = application.applicantAddress || 'N/A';
+                    document.getElementById('detail-submission-date').textContent = application.submissionDate ? new Date(application.submissionDate.seconds * 1000).toLocaleString() : 'N/A';
+
+                    const statusSelect = document.getElementById('application-status');
+                    statusSelect.value = application.status || 'Submitted'; // Set current status
+                    
+                    // Only allow status update for Officer/Staff
+                    if (currentUserRole === 'user') {
+                        statusSelect.disabled = true; // Users can't change status
+                        document.getElementById('update-application-status-btn').classList.add('hidden');
+                    } else {
+                        statusSelect.disabled = false;
+                        document.getElementById('update-application-status-btn').classList.remove('hidden');
+                    }
+
+                    showModule('application-details');
+                    console.log(`Displaying details for application: ${applicationId}`);
+                } else {
+                    displayErrorMessage('application-details-error', 'Application not found.');
+                    console.warn(`Application with ID ${applicationId} not found.`);
+                }
+            } catch (error) {
+                console.error("Error fetching application details:", error);
+                displayErrorMessage('application-details-error', `Failed to load application details: ${error.message}`);
+            }
+        }
+
+        /**
+         * Updates the status of the currently viewed application.
+         */
+        async function updateApplicationStatus() {
+            const newStatus = document.getElementById('application-status').value;
+            const applicationDetailsErrorElement = document.getElementById('application-details-error');
+            applicationDetailsErrorElement.classList.add('hidden');
+
+            if (!currentApplicationDocId) {
+                displayErrorMessage('application-details-error', 'No application selected for update.');
+                return;
+            }
+            if (!db) {
+                console.error("Firestore DB not initialized.");
+                displayErrorMessage('application-details-error', 'Database not ready. Please try again.');
+                return;
+            }
+
+            try {
+                const applicationDocRef = doc(db, `artifacts/${appId}/public/data/applications`, currentApplicationDocId);
+                await updateDoc(applicationDocRef, {
+                    status: newStatus,
+                    updatedBy: currentUserId,
+                    updatedAt: new Date()
+                });
+                console.log(`Application ${currentApplicationDocId} status updated to: ${newStatus}`);
+                alertBox("Status Updated!", `Application status successfully changed to "${newStatus}".`);
+
+                // Navigate back to the appropriate list after update
+                if (currentUserRole === 'officer' || currentUserRole === 'staff') {
+                    showModule('oversee-applications');
+                    fetchAndDisplayAllApplications(); // Refresh list
+                } else {
+                    // This path should ideally not be taken if update button is hidden for users
+                    showModule('my-applications');
+                    fetchAndDisplayMyApplications(); // Refresh list
+                }
+
+            } catch (error) {
+                console.error("Error updating application status:", error);
+                displayErrorMessage('application-details-error', `Failed to update status: ${error.message}`);
+            }
+        }
+
+    </script>
+</body>
+</html>

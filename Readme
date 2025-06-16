@@ -1,0 +1,119 @@
+Digital E-Gram Panchayat Portal
+This project is a web-based Digital E-Gram Panchayat portal designed to modernize and streamline the interaction between village citizens and local government services. It provides a comprehensive platform for residents to access services, submit applications, and track their progress online, while also empowering Panchayat officers and staff to efficiently manage and oversee these processes.
+
+Features
+The portal offers distinct functionalities tailored for different user roles:
+
+Citizen User
+Secure Authentication: Register and log in securely.
+
+Explore Services: Browse a list of available government services (e.g., birth certificates, property records).
+
+Submit Applications: Apply for desired services through an intuitive form.
+
+Track Application Status: View the real-time status of all submitted applications.
+
+Profile Management: Manage personal user details.
+
+Panchayat Officer / Admin
+Service Creation & Management: Add new services, define their descriptions, and list required documents.
+
+Application Oversight: View all applications submitted by citizens.
+
+Review & Approve Applications: Access detailed application information and update their status (e.g., "Approved," "Rejected," "Pending Documents").
+
+Secure Authentication: Log in with administrative privileges.
+
+Gram Seva Staff
+View Service Details: Access information about available services.
+
+Update Application Progress: Update the status of citizen applications, similar to officers.
+
+Secure Authentication: Log in with staff privileges.
+
+Technology Stack
+Frontend: HTML, CSS (Tailwind CSS for utility-first styling)
+
+Client-Side Scripting: JavaScript (Vanilla JS)
+
+Backend & Database: Google Firebase (Authentication for user management, Firestore for real-time NoSQL database)
+
+Hosting: Designed for easy deployment on any web hosting platform.
+
+Setup and Installation
+To run this project locally or deploy it, follow these steps:
+
+Clone the Repository:
+
+git clone <your-repository-url>
+cd digital-e-gram-panchayat
+
+Set up Firebase Project:
+
+Go to the Firebase Console.
+
+Create a new Firebase project.
+
+Enable Authentication: In your Firebase project, navigate to Authentication > Sign-in method and enable Email/Password authentication.
+
+Set up Firestore Database: In your Firebase project, navigate to Firestore Database > Create database. Start in production mode (or test mode and later adjust security rules).
+
+Firebase Configuration: Get your Firebase Web App configuration. You'll find this under Project settings > Your apps > Web app. Copy the firebaseConfig object.
+
+Integrate Firebase Config:
+
+Open index.html in your project.
+
+Locate the firebaseConfig object within the <script type="module"> tag.
+
+Replace the placeholder firebaseConfig object with your actual Firebase project's configuration.
+
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID",
+    measurementId: "YOUR_MEASUREMENT_ID"
+};
+
+Firebase Firestore Security Rules:
+For the application to function correctly and securely, set up the following Firestore security rules. Navigate to Firestore Database > Rules in your Firebase Console and replace the existing rules with these:
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Public data for services and applications
+    match /artifacts/{appId}/public/data/{collectionName} {
+      allow read, create: if request.auth != null; // Anyone logged in can read and create public data
+      allow update, delete: if request.auth != null && get(/databases/$(database)/documents/artifacts/$(appId)/users/$(request.auth.uid)/profile/details).data.role in ['officer', 'staff']; // Only officers/staff can update/delete
+    }
+
+    // Private user profiles
+    match /artifacts/{appId}/users/{userId}/profile/details {
+      allow read: if request.auth != null && request.auth.uid == userId; // Users can read their own profile
+      allow create: if request.auth != null && request.auth.uid == userId; // Users can create their own profile on registration
+      allow update: if request.auth != null && request.auth.uid == userId; // Users can update their own profile
+    }
+  }
+}
+
+Open in Browser:
+
+Simply open the index.html file in your web browser. There's no build step required as it's a client-side application.
+
+Usage
+Register: Create accounts for different roles (Citizen, Staff, Officer) using the "Register for Services" link.
+
+Officer Login: Log in as an Officer to create new services.
+
+Citizen Login: Log in as a Citizen to explore services and submit applications.
+
+Officer/Staff Login: Log in as an Officer or Staff to oversee and update application statuses.
+
+Contributing
+Feel free to fork the repository, make improvements, and submit pull requests.
+
+License
+This project is open-source and available under the MIT License.
